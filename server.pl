@@ -22,8 +22,6 @@
 :- setting(port, number, env(http_port, 80), 'HTTP port the server is listening on. (ENV http_port)').
 :- setting(server_base_url, atom, env(base_url, '/'), 'Base URL of the server, all absolute links are prefixed with this address (ENV base_url)').
 
-
-
 user:file_search_path(book, BookBase) :- setting(md_manifest:book_base, BookBase).
 user:file_search_path(book, './documentation').
 

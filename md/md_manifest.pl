@@ -15,10 +15,10 @@ Manifest.asset_path(RelativePath) := book(FilePath) :-
     directory_file_path(Manifest.'source-root', RelativePath, FilePath).
 
 %oublic 
-Manifest.render_body(_BaseUrl, Section) := Html :-    
+Manifest.render_body(BaseUrl, Section) := Html :-    
     md_book(Manifest, Section, SectionHtml),    
     SummaryPath = Manifest.resolve_section_path(Manifest.summary),
-    md_book(Manifest, SummaryPath, SummaryHtml),
+    md_book(Manifest, SummaryPath, SummaryHtml, BaseUrl),
     Html = div(class='page-layout', [
         div(class='book-section',[
             div(class='padding-left',''),
@@ -47,12 +47,14 @@ Manifest.render_body(_BaseUrl, Section) := Html :-
 %public
 Manifest.render_head(BaseUrl) :=  Html :-
     atomic_list_concat(['/_themes/', Manifest.theme, '.css'], Theme0),
-    rebase_absolute_path(BaseUrl, Theme0, ThemeLink),        
+    rebase_absolute_path(BaseUrl, Theme0, ThemeLink),
+    atomic_list_concat(['/_themes/', 'base.css'], ThemeBase),
+    rebase_absolute_path(BaseUrl, ThemeBase, ThemeBaseLink),        
     Html = 
         [ 
             link([ type('text/css'), rel(stylesheet), href('https://cdnjs.cloudflare.com/ajax/libs/perfundo/4.0.4/perfundo.with-icons.min.css') ]),
             link([ type('text/css'), rel(stylesheet), href('//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css') ]),
-            link([ type('text/css'), rel('stylesheet'), href('/_themes/base.css') ]),
+            link([ type('text/css'), rel('stylesheet'), href(ThemeBaseLink) ]),
             link([ type('text/css'), rel('stylesheet'), href(ThemeLink) ]),                                
             script([src='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js'], ''),                
             script('hljs.initHighlightingOnLoad();'),
@@ -72,10 +74,6 @@ Manifest.resolve_section_path(SectionIn) := Section :-
     ;
         Section = SectionPath
     ).  
-
-
-    
-
 
 % public
 load_documentation_manifest(Request, ManifestOut) :-

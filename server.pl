@@ -25,7 +25,9 @@
 user:file_search_path(book, BookBase) :- setting(md_manifest:book_base, BookBase).
 user:file_search_path(book, './documentation').
 
-:- http_handler(root('_themes'), http_reply_from_files('themes', []), [prefix]).
+user:file_search_path(themes, './themes').
+
+:- http_handler(root('_themes'), serve_theme, [prefix]).
 :- http_handler(root('_help'), serve_help, [prefix]).
 
 :- http_handler(root('favicon.ico'), http_reply_file('themes/favicon.ico', []), []).
@@ -76,6 +78,16 @@ serve_book(_Manifest, Request) :-
     option(path(Path), Request),
     throw(http_reply(not_found(Path))).
 
+
+serve_theme( Request) :-
+    option(path_info(Asset), Request),
+    absolute_file_name(themes(Asset), Absolute),
+    exists_file(Absolute),    
+    access_file(Absolute, read),
+    http_reply_file(themes(Asset), [], Request).
+serve_theme(Request) :-
+    option(path(Path), Request),
+    throw(http_reply(not_found(Path))).
 
 http:status_page(not_found(URL), _Context, HTML) :-
     phrase(page([ title('Sorry, no such page')], 

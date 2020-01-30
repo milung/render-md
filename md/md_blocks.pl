@@ -113,7 +113,80 @@ block(_, Block) -->
 block(_, Block) -->
     fenced_code(Block).
 
+block(_, Block) -->
+    table(Block).
 
+table(table([Head | tbody(Rows)])) -->
+    table_head(Head), 
+    table_rows(Rows).
+
+table(table(tbody(Rows))) -->
+    table_rows( Rows).
+    
+table_head( thead(tr(Cells)) ) -->
+    table_head_row(Cells),
+    hyphens_row(_Alignments). 
+
+table_rows( [tr(Row) | Rows ]) -->
+    table_row( Row ),
+    table_rows( Rows ).
+table_rows( [ tr(Row) ]) -->
+    table_row( Row ),
+    !.
+
+table_row( [Cell] ) --> 
+    whites, 
+    table_cell(Cell),
+    row_end,
+    !.
+table_row( [Cell| Cells] ) -->
+    whites, 
+    table_cell(Cell),
+    table_row(Cells).
+
+table_head_row( [th(Cell)] ) --> 
+    whites, 
+    table_cell(td(Cell)), 
+    row_end,
+    !.
+table_head_row( [ th(Cell) | Cells] ) -->
+    whites, 
+    table_cell(td(Cell)),
+    table_head_row(Cells).
+
+table_cell(td(Html)) --> 
+    "|",
+    table_content(Content), 
+    cell_end,
+    { 
+        md_span_codes(Content, Html)
+    }.
+
+table_content([]), "|" --> ( "|"; "\n" ), !.
+table_content([ X | T]) --> 
+    [X],
+    table_content(T).
+
+
+row_end --> ( "|"; [] ), whites, "\n".
+
+cell_end, "|" --> whites, "|".
+cell_end, "|" --> whites, "\n".
+
+hyphens_row([Alignment]) --> 
+    hyphens_cell(Alignment),
+    row_end.
+hyphens_row([Alignment| Alignments]) --> 
+    whites,
+    hyphens_cell(Alignment),
+    hyphens_row(Alignments). 
+
+hyphens --> "-", hyphens.
+hyphens --> !.
+
+hyphens_cell(left) --> "|---", hyphens, cell_end.
+hyphens_cell(right), "|" --> "|", " ", whites, hyphens, "---|".
+hyphens_cell(midle) --> "|", " ", whites, "---", hyphens, " ", whites, cell_end.
 
 % Recognizes fenced code blocks.
 % The language is put into the

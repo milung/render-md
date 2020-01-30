@@ -23,23 +23,21 @@ md_parse_files(Files, Html, BaseUrl) :-
     md_parse_codes(FlatCodes, Html).
 
 md_merge_files([], [], _).
-md_merge_files([File|Files], [CodesFile, Codes], BaseUrl) :-  
-    read_file_to_codes(File, CodesFile, [encoding(utf8)]),
+md_merge_files([File|Files], [CodesFile, CodesOut], BaseUrl) :-  
+    read_file_to_codes(File, Codes, [encoding(utf8)]),
     (
         BaseUrl \= false,
-        rebase_local_links(BaseUrl, Codes, Codes1)
+        rebase_local_links(BaseUrl, Codes, CodesFile)
     ;
-        Codes1 = Codes
+        CodesFile = Codes
     ),
-    md_merge_files(Files, Codes1, BaseUrl).
+    md_merge_files(Files, CodesOut, BaseUrl).
 
 rebase_local_links(_, [], []).
-rebase_local_links(BaseUrl, CodesIn, CodesOut) :-
-    atom_codes('](./', SearchCodes),
-    append(SearchCodes, Codes1, CodesIn),
+rebase_local_links(BaseUrl, [ 0'], 0'(, 0'., 0'/ |CodesIn], CodesOut) :-
     atom_codes(BaseUrl, Prefix0),
-    append(Prefix0, BaseUrl, Prefix),
-    append(Prefix, Codes1, Codes2),
-    rebase_local_links(BaseUrl, Codes2,CodesOut).
+    append([ 0'], 0'( ], Prefix0, Prefix),
+    append( Prefix, CodesIn, Codes2),
+    rebase_local_links(BaseUrl, Codes2, CodesOut).
 rebase_local_links(BaseUrl, [X|Codes], [X|CodesOut]) :-
     rebase_local_links(BaseUrl, Codes,CodesOut).

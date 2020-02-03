@@ -60,7 +60,9 @@ serve_book(Request) :-
     serve_book(Manifest, Request).
 
 serve_book(Manifest, Request) :-
-    option(path_info(Section), Request, Manifest.index),
+    option(path_info(SectionUri), Request, Manifest.index),
+    uri_encoded(path, Section, SectionUri),
+    
     SectionPath = Manifest.resolve_section_path(Section),    
     file_mime_type(SectionPath, MimeType),
     (

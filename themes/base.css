@@ -28,6 +28,15 @@
     border-bottom: 1px solid #eee;
 }
 
+.book-summary h2 { font-size: 1.4em; }
+.book-summary h3 { font-size: 1.2em; }
+.book-summary h4, 
+.book-summary h5,
+.book-summary h6 
+{ 
+  font-size: 1.2em;
+}
+
 .book-summary a
 {
     text-decoration: none;

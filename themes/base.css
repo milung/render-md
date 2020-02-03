@@ -59,7 +59,7 @@
 
 .book-section img
 {
-    max-width: var(--reading-width, 800px);
+    max-width: var(--reading-width, 1200px);
 }
 
 .book-section > .padding-left
@@ -74,9 +74,14 @@
 
 .book-section > .section-body
 {
-    flex: 0 0 var(--reading-width, 800px);
+    flex: 0 0 var(--reading-width, 1200px);
 }
 
+.book-section > .section-body code {
+  max-width: var(--reading-width, 1200px);
+  overflow-x: auto;
+
+}
 /* Style the Image Used to Trigger the Modal */
 .section-body img: {
     border-radius: 5px;

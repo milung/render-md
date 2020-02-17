@@ -17,6 +17,8 @@ Manifest.asset_path(RelativePath) := book(FilePath) :-
 %oublic 
 Manifest.render_body(BaseUrl, Section) := Html :-
     md_book(Manifest, Section, SectionHtml),    
+    atomic_list_concat(['/_themes/', 'modal.js'], ModalBase),
+    rebase_absolute_path(BaseUrl, ModalBase, ModalBaseLink), 
     SummaryPath = Manifest.resolve_section_path(Manifest.summary),
     md_book(Manifest, SummaryPath, SummaryHtml, BaseUrl),
     Html = div(class='page-layout', [
@@ -29,10 +31,12 @@ Manifest.render_body(BaseUrl, Section) := Html :-
             span(class('modal-close'), x ),
             img([class('modal-content'), id('modal-img')]),
             div(id('modal-caption'), '')]), 
-        script([src='/_themes/modal.js'], '')]).
+        script([src=ModalBaseLink], '')]).
 
-Manifest.render_body(_BaseUrl, Section) := Html :-
+Manifest.render_body(BaseUrl, Section) := Html :-
     md_book(Manifest, Section, SectionHtml),    
+    atomic_list_concat(['/_themes/', 'modal.js'], ModalBase),
+    rebase_absolute_path(BaseUrl, ModalBase, ModalBaseLink),  
     Html = div(class='page-layout', [
         div(class='book-section',[
             div(class='padding-left',''),
@@ -42,7 +46,7 @@ Manifest.render_body(_BaseUrl, Section) := Html :-
             span(class('modal-close'), x ),
             img([class('modal-content'), id('modal-img')]),
             div(id('modal-caption'), '')]), 
-        script([src='/_themes/modal.js'], '')]).
+        script([src=ModalBaseLink], '')]).
 
 %public
 Manifest.render_head(BaseUrl) :=  Html :-

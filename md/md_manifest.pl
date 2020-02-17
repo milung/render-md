@@ -15,7 +15,7 @@ Manifest.asset_path(RelativePath) := book(FilePath) :-
     directory_file_path(Manifest.'source-root', RelativePath, FilePath).
 
 %oublic 
-Manifest.render_body(BaseUrl, Section) := Html :-    
+Manifest.render_body(BaseUrl, Section) := Html :-
     md_book(Manifest, Section, SectionHtml),    
     SummaryPath = Manifest.resolve_section_path(Manifest.summary),
     md_book(Manifest, SummaryPath, SummaryHtml, BaseUrl),
@@ -31,7 +31,7 @@ Manifest.render_body(BaseUrl, Section) := Html :-
             div(id('modal-caption'), '')]), 
         script([src='/_themes/modal.js'], '')]).
 
-Manifest.render_body(_BaseUrl, Section) := Html :-    
+Manifest.render_body(_BaseUrl, Section) := Html :-
     md_book(Manifest, Section, SectionHtml),    
     Html = div(class='page-layout', [
         div(class='book-section',[

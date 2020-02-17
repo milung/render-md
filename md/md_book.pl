@@ -15,7 +15,16 @@ md_book(ManifestDict, SectionFile, Html, BaseUrl):-
     ;
         Files = [SectionFile]
     ),
-    md_parse_files(Files, Html, BaseUrl).    
+    base_normalized(BaseUrl, NormalizedBase),
+    md_parse_files(Files, Html, NormalizedBase).    
+
+base_normalized('/', '/') :- !.
+base_normalized('', '/') :- !.
+base_normalized(Base, Base) :- 
+    atom_concat(_, '/', Base),
+    !.
+base_normalized(Base, Normal) :- 
+    atom_concat(Base, '/', Normal).
 
 md_parse_files(Files, Html, BaseUrl) :-
     md_merge_files(Files, Codes, BaseUrl), 
@@ -35,7 +44,7 @@ md_merge_files([File|Files], [CodesFile, CodesOut], BaseUrl) :-
 
 rebase_local_links(_, [], []).
 rebase_local_links(BaseUrl, [ 0'], 0'(, 0'., 0'/ |CodesIn], CodesOut) :-
-    atom_codes(BaseUrl, Prefix0),
+    atom_codes(BaseUrl, Prefix0),    
     append([ 0'], 0'( ], Prefix0, Prefix),
     append( Prefix, CodesIn, Codes2),
     rebase_local_links(BaseUrl, Codes2, CodesOut).

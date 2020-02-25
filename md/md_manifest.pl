@@ -58,10 +58,12 @@ Manifest.render_head(BaseUrl) :=  Html :-
         [ 
             link([ type('text/css'), rel(stylesheet), href('https://cdnjs.cloudflare.com/ajax/libs/perfundo/4.0.4/perfundo.with-icons.min.css') ]),
             link([ type('text/css'), rel(stylesheet), href('//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css') ]),
+            link([type('text/css'), rel(stylesheet), href('https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css')]),
             link([ type('text/css'), rel('stylesheet'), href(ThemeBaseLink) ]),
             link([ type('text/css'), rel('stylesheet'), href(ThemeLink) ]),                                
             script([src='//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js'], ''),                
             script('hljs.initHighlightingOnLoad();'),
+            script([src='https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js'], ''),
             title(Manifest.title)
         ].
 

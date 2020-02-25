@@ -20,7 +20,7 @@ thematic_break -->
     thematic_break_chars(3, _),
     line_ending. 
 
-% atx_heading(-Level:integer)// is nondet.
+% atx_heading(-Html)// is nondet.
 %
 % Matches [ATX heading](https://spec.commonmark.org/0.29/#atx-heading)
 %
@@ -48,6 +48,23 @@ atx_heading(Html) -->
         )
     },
     !.
+
+% settext_heading(-Html)// is nondet.
+%
+% Matches [Setext heading](https://spec.commonmark.org/0.29/#setext-heading)
+%
+setext_heading(Html) -->
+    offset(0,3, _),
+    inline_anchor(Inline, Anchor),
+    line_ending,
+    setext_underline.
+
+setext_underline --> 
+    offset(0, 3, _), 
+    one_or_more(0'-),
+    whites, 
+    line_ending.
+
 
 atx_opening(Level, Level) -->
     [ 0'# ],

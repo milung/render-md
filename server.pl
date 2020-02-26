@@ -13,10 +13,13 @@
 :- use_module('md/md_parse').
 :- use_module('md/md_book').
 
-:- multifile user:file_search_path/2.
-:- multifile http:status_page/3.
-:- multifile http:location/3.
-:- dynamic   http:location/3.
+:- multifile 
+    user:file_search_path/2,
+    http:status_page/3,
+    http:location/3.
+
+:- dynamic   
+    http:location/3.
 
 
 :- setting(port, number, env(http_port, 80), 'HTTP port the server is listening on. (ENV http_port)').
@@ -69,6 +72,7 @@ serve_book(Manifest, Request) :-
         MimeType = text/markdown,        
         setting(server_base_url,BaseUrl),
         reply_html_page(
+            material,
             Manifest.render_head(BaseUrl), 
             Manifest.render_body(BaseUrl, SectionPath))           
     ;          

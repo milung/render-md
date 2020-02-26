@@ -5,13 +5,13 @@ let modalImages = function() {
     var modalImg = document.getElementById("modal-img");
     var captionText = document.getElementById("modal-caption");
 
-    var elements = document.getElementsByClassName("section-body")[0].getElementsByTagName("img");
+    var elements = document.getElementsByClassName("book-content")[0].getElementsByTagName("img");
     for(let index = 0; index < elements.length; ++index ) {
         let img = elements[index];
         img.onclick = function(){
-            modal.style.display = "block";
-            modalImg.src = this.src;
+            modal.style.display = "block";            
             captionText.innerHTML = this.alt;
+            modalImg.style.'background-image' = 'url("' + this.src + '"');
         }
     }
 

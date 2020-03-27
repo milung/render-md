@@ -48,10 +48,13 @@ aside { top: 48px;  }
     font-weight: 500;
     letter-spacing: .0071428571em;
     text-decoration: none;
-    text-transform: inherit;
-    height: 20px;
+    text-transform: inherit;    
     margin: 8px;
     padding: 0 8px;
+}
+
+.mdc-drawer li p {
+  margin: 0px;
 }
 
 .mdc-drawer h2, .mdc-drawer h3 {

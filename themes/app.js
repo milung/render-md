@@ -32,5 +32,42 @@ let modalImages = function() {
 };
 
 modalImages();
+
+// code language highlighting
 hljs.initHighlightingOnLoad();
+
+// navigation
+function loadPage(event, page) {
+    let uri = page || this.href;
+    
+    fetch(uri)
+    .then(response => response.text())
+    .then(text => {
+        const parser = new DOMParser();
+        const htmlDocument = parser.parseFromString(text, 'text/html');
+        const page = htmlDocument.documentElement.querySelector('.book-content');
+        const appContent = document.querySelector(".mdc-drawer-app-content");
+        const currentPage = appContent.querySelector('.book-content') ;
+        if(page) {
+            appContent.removeChild(currentPage);
+            appContent.appendChild(page);
+            history.pushState({ page: uri}, document.title, uri);        
+        } else {
+            const innerHtml = htmlDocument.documentElement.querySelector('body').innerHTML;
+            currentPage.innerHTML = innerHtml;
+        }      
+    });
+
+    event.preventDefault(); 
+    return false; 
+}
+
+function interceptSummaryLinks() {
+    document.querySelectorAll('aside a').forEach( _ => _.onclick = loadPage);
+    window.onpopstate = function (event) {
+        this.loadPage(event, window.location);       
+    }
+} 
+
+interceptSummaryLinks();
     

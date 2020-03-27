@@ -14,14 +14,18 @@ body{
   overflow-y: hidden;
 }
 
-header { z-index: 8;}
-aside { top: 48px;  }
+body header { z-index: 8;}
+body aside#drawer { 
+  top: 48px;  
+  bottom: 0;
+  height: unset;
+}
 
 .mdc-drawer-app-content {
     height: 100vh;
 }
 
-.book-content {
+body .mdc-drawer-app-content .book-content {
     position: absolute;
     top: 48px;
     bottom: 0px;
@@ -49,7 +53,7 @@ aside { top: 48px;  }
     letter-spacing: .0071428571em;
     text-decoration: none;
     text-transform: inherit;    
-    margin: 8px;
+    margin-bottom: 8px;
     padding: 0 8px;
 }
 
@@ -57,97 +61,105 @@ aside { top: 48px;  }
   margin: 0px;
 }
 
-.mdc-drawer h2, .mdc-drawer h3 {
-    font-family: Roboto,sans-serif;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-    font-size: .875rem;
-    line-height: 1.25rem;
-    font-weight: 400;
-    letter-spacing: .0178571429em;
-    text-decoration: inherit;
-    text-transform: inherit;
-    display: block;
-    margin-top: 0;
-    line-height: normal;
-    margin: 0;
-    padding: 0 16px;
-    border-bottom: 0;
+.mdc-drawer h1, .mdc-drawer h2, .mdc-drawer h3 {
+  font-family: Roboto,sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: .875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  letter-spacing: .0178571429em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  display: block;
+  margin-top: 0;
+  line-height: normal;
+  margin: 0;
+  padding: 0 16px;
+  border-bottom: 0;
+}
+
+.mdc-drawer h1 
+{
+font-weight: bold;
+padding: 0 16px 10px 16px  ;
+font-size: 1rem;
 }
 
 .mdc-drawer h2 
 {
-  font-weight: bold;
-  padding: 0 16px 10px 16px
-  ;
+font-weight: bold;
+padding: 0 16px 10px 16px
+;
 }
+
 .book-content code {
-  max-width: 100%;
-  overflow-x: auto;
+max-width: 100%;
+overflow-x: auto;
 
 }
 /* Style the Image Used to Trigger the Modal */
 .book-content img: {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    max-width: 100%;
-  }
-  
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  max-width: 100%;
+}
+
 .book-content img:hover {opacity: 0.7;}
-  
-  /* The Modal (background) */
+
+/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hide;
-  padding: 10vw;
-  box-sizing: border-box;
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 10; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100vw;
+height: 100vh;
+overflow: hide;
+padding: 10vw;
+box-sizing: border-box;
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
 }
 
 .modal .mdc-card {
-    position: absolute;
-    bottom: 5vw;
-    top: 5vw;
-    left: 5vw;
-    right: 5vw;
+  position: absolute;
+  bottom: 5vw;
+  top: 5vw;
+  left: 5vw;
+  right: 5vw;
 }
 
 .modal-media {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center top;
-    /* width: 90vw; */
-    height: 80vh;
-    margin: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
+  /* width: 90vw; */
+  height: 80vh;
+  margin: 18px;
 }
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
 #modal-caption {
-  padding: 8px;
-  border-bottom: 0;
+padding: 8px;
+border-bottom: 0;
 }
 .modal .mdc-card__media--16-9::before
 {
-  margin-top: 0px;
+margin-top: 0px;
 }
 /* Modal Content (Image) */
 .modal-content {
-    margin: auto;
-    display: block;
-    max-width: 100%;
-    max-height: calc(100% - 100px);
-    padding: 8px;
-    box-sizing: border-box;
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  max-height: calc(100% - 100px);
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .hljs, table, .book-content img {
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0,0,0,.12);
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0,0,0,.12);
 }

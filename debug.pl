@@ -1,7 +1,21 @@
 :- [load].
 
+% debug settings to make debugging more fancy
 :- use_module(library('http/http_error')).
 
-:- set_setting(server:port, 2020).
-%:- set_setting(server:server_base_url, '/nlp-documentation/').
-:- set_setting(md_manifest:book_base, '/00/bt3i/nlp/nlp-documentation').
+:- load_settings('app.settings.pl', [undefined(load)]).
+:- load_settings('dev.settings.pl', [undefined(load)]).
+
+:- load_test_files([]).
+
+% generic debugging
+:- debug(trace).
+:- debug(trace(_)).
+:- debug(debug).
+:- debug(debug(_)).
+:- debug(info).
+:- debug(info(_)).
+:- debug(warning).
+:- debug(warning(_)).
+:- debug(error).
+:- debug(error(_)).

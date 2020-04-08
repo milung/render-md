@@ -50,7 +50,10 @@ function loadPage(event, page) {
         const currentPage = appContent.querySelector('.book-content') ;
         if(page) {
             appContent.removeChild(currentPage);
-            appContent.appendChild(page);
+            let child = appContent.appendChild(page);
+            child.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+              });
             history.pushState({ page: uri}, document.title, uri);        
         } else {
             const innerHtml = htmlDocument.documentElement.querySelector('body').innerHTML;

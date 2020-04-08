@@ -49,7 +49,7 @@ atx_heading(Html) -->
     },
     !.
 
-% settext_heading(-Html)// is nondet.
+% setext_heading(-Html)// is nondet.
 %
 % Matches [Setext heading](https://spec.commonmark.org/0.29/#setext-heading)
 %

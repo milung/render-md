@@ -26,5 +26,6 @@
 :- use_module(source(commonmark/blocks)).
 :- use_module(source(commonmark/leaf_blocks)).
 :- use_module(source(commonmark/code_blocks)).
+:- use_module(source(html_blocks)).
 %source(routing)).
 %source(main)).

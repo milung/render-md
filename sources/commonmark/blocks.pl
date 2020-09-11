@@ -4,8 +4,6 @@
 :- use_module(source(commonmark/line)).
 :- use_module(source(commonmark/wildcards)).
 
-
-
 document(Blocks) --> 
     blocks([], Blocks).
 
